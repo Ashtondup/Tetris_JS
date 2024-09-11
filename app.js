@@ -7,8 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let nextRandom = 0
     let timerId
     let score = 0
+    const colors = [
+        'orange',
+        'red',
+        'purple',
+        'green',
+        'blue'
+    ]
 
-//Tetris_JS
     // Tetrominoes
     const lTetromino = [
         [1, width+1, width*2+1, 2],
@@ -60,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
         current.forEach(index => {
             squares[currentPosition + index].classList.add('tetromino')
+            squares[currentPosition + index].style.backgroundColor = colors[random]
         })
     }
 
@@ -68,11 +75,9 @@ document.addEventListener('DOMContentLoaded', () => {
     {
         current.forEach(index =>{
             squares[currentPosition + index].classList.remove('tetromino')
+            squares[currentPosition + index].style.backgroundColor = ''
         })
     }
-
-    // move down every second
-    // timerId = setInterval(moveDown, 1000)
 
     //assign function to keyCodes
     function control(e)
@@ -169,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // show next tetromino in mini-grid
     const displaySquares = document.querySelectorAll('.mini-grid div')
     const displayWidth = 4
-    let displayIndex = 0
+    const displayIndex = 0
 
     // tetrominos no rotation
     const upNextTetrominoes = [
@@ -185,9 +190,11 @@ document.addEventListener('DOMContentLoaded', () => {
     {
         displaySquares.forEach(square => {
             square.classList.remove('tetromino')
+            square.style.backgroundColor = ''
         })
         upNextTetrominoes[nextRandom].forEach(index => {
             displaySquares[displayIndex + index].classList.add('tetromino')
+            displaySquares[displayIndex + index].style.backgroundColor = colors[nextRandom]
         })
     }
 
@@ -220,6 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 row.forEach(index => {
                     squares[index].classList.remove('taken')
                     squares[index].classList.remove('tetromino')
+                    squares[index].style.backgroundColor = ''
                 })
                 const squaresRemoved = squares.splice(i, width)
                 squares = squaresRemoved.concat(squares)
